@@ -1,4 +1,4 @@
-# ytcourse-python-api
+# Python API Development Course
 
 O curso que estou acompanhando é da freeCodeAcademy.org e pode ser acessado através do link abaixo.
 
@@ -10,6 +10,24 @@ Em um dos comentários eu pude notar que um colega fez a section, onde:
 
 ### Section 1: Introduction
 1. Course Project
+- Featured API:
+*Authentication*
+*CRUD Operation*
+*Validation*
+*Documentaion*
+- Tools
+*Alembic* to allow us to make incremental changes to our database schema to track changes
+*Postman* to construct HTTP package
+*FastAPI* one featured that it uses is auto documentation functionality
+*Postgres*
+Python *SQL Alchemy* 
+- Testing
+- Deployment
+*Ubuntu*
+*Heroku*
+*Docker*
+*Cloud Provider*
+- CI/CD
 2. Course Intro
 3. Course Project Overview 06:33
 
