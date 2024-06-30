@@ -1,10 +1,14 @@
 # Python API Development Course
 
-O curso que estou acompanhando é da freeCodeAcademy.org e pode ser acessado através do link abaixo.
+Estou acompanhandoo curso disponibilizado pela freeCodeAcademy.org e pode ser acessado através do link abaixo.
+Tendo em vista que ele foi gravado a quase 2 anos estou realizado anotações gerais no ReadMe e diretamente nos scripts.
+Para fins de acompanhamento de progressão
+vou colocar uma flag chamado "iniciado" e "finalizado" para ver quanto tempo levou até a conclusão.
+Inicie o curso dia 27/06 e a data de previsão de término, segundo algumas métricas que coloquei no ChatGPT, é 
+dia 5/9/2024.
 
 https://youtu.be/0sOvCWFmrtA?si=VAtGGNFm5cKzqUhZ
 
-Apesar de estar em inglês a minha intenção é registrar todo o meu aprendizado em português, salvo um ou outro termo.
 
 Em um dos comentários eu pude notar que um colega fez a section, onde:
 
@@ -41,9 +45,11 @@ Python *SQL Alchemy*
 10. Virtual environment on Mac 28:56
 
 ### Section 3: FastAPI
+- Iniciado: 27/06/24
 11. Install dependencies w/ pip 34:17
-12. Starting Fast API 36:21
+12. Starting Fast API 36:21 -Continuar deste ponto
 13. Path operations 39:23
+![alt text](/img/image.png)
 14. Path Operation Order(yes it matters) 51:08
 15. Intro to Postman 53:22
 16. HTTP Post Requests 57:34
