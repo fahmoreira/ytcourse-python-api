@@ -23,12 +23,16 @@ e pode fornecer informações básicas ou mensagens iniciais aos usuários da AP
 def read_root():
     return {'Hello': "Welcome"}
 
+@app.get('/posts')
+def get_data():
+    return {'data': 'Your data has been captured!'}
+
 # @app.get('/item/{item_id}')
 # def read_item(item_id: int, q: Union[str, None] = None):
 #     return {'item_id': item_id, 'q': q}
 
 '''
-+ Section3
++ Section 3
 Nesse primeiro script foi feito a configuração do ambiente virtual: python.exe -m venv venv
 Após isso foi realizado a instalação da primeira dependência (FastAPI): pip install fastapi[all]
 E escrito as linhas acima segundo a documentação disponível em: https://fastapi.tiangolo.com/
@@ -41,4 +45,10 @@ On Terminal: fastapi.exe dev .\scripts\main.py
 ++ Cenário
 - Após chamar a função `fastapi.exe dev .\scripts\main.py` qualquer alteração que eu fizer no script
 será necessário reiniciá-lo, porém o processo é feito automaticamente, pois o fastapi.exe entende as alterações.
+
+++ Cenário 2
+- The order in fact, does matter! So you have to keep that in mind. 
+And it can impact the way you API ultimately works.
+Quando fazemos a inserção de decoretors para `HTTP Methods iguais` e o mesmo "path" (url) 
+o primeiro que estiver no script será realizado, enquanto os subsequentes serão ignorados.
 '''
