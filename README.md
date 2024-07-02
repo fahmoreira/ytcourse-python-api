@@ -58,22 +58,18 @@ Python *SQL Alchemy*
 
 ### HTTP GET VS POST Request
 *HTTP GET Request*
-16.1. Envio de Dados:
 
+16.1. Envio de Dados:
 - A linha verde representa a requisição GET.
 Em uma requisição GET, os dados são enviados como parte da URL. Isso significa que você pode ver os dados na barra de endereços do navegador.
 
 - A requisição GET é geralmente usada para solicitar dados de um servidor. Por exemplo, acessar uma página da web ou buscar informações de uma API.
-Recebimento de Dados:
-
-- A API processa a requisição GET e envia os dados de volta ao cliente, também representado pela linha verde.
-Os dados retornados são visíveis na URL, o que pode ser útil para bookmark ou compartilhar links, mas também significa que há limitações de tamanho para os dados enviados.
 
 *HTTP POST Request*
-16.2. Envio de Dados:
 
+16.2. Envio de Dados:
 - A linha roxa representa a requisição POST.
-Em uma requisição POST, os dados são enviados no corpo da requisição HTTP, não na URL. Isso permite o envio de dados maiores e mais complexos, como formulários ou arquivos.
+Em uma requisição POST, os dados são enviados no corpo (body) da requisição HTTP, não na URL. Isso permite o envio de dados maiores e mais complexos, como formulários ou arquivos.
 
 - A requisição POST é geralmente usada para enviar dados ao servidor para criação ou atualização. Por exemplo, enviar um formulário de cadastro ou fazer login em um site.
 Recebimento de Dados:
@@ -81,28 +77,29 @@ Recebimento de Dados:
 - A API processa a requisição POST e envia uma resposta de volta ao cliente, também representada pela linha roxa.
 
 - Os dados retornados não são visíveis na URL, o que oferece maior segurança e flexibilidade.
-Comparação entre GET e POST
-Visibilidade dos Dados:
 
+Comparação entre GET e POST
+
+++ Visibilidade dos Dados:
 GET: Dados são visíveis na URL.
 POST: Dados são enviados no corpo da requisição, não visíveis na URL.
-Uso Típico:
 
+++ Uso Típico:
 GET: Recuperar dados (ex.: acessar uma página da web, buscar informações).
 POST: Enviar dados (ex.: enviar formulários, criar/atualizar recursos).
-Limitações de Tamanho:
 
+++ Limitações de Tamanho:
 GET: Limitado pelo tamanho da URL.
 POST: Pode enviar grandes volumes de dados no corpo da requisição.
-Segurança:
 
+++ Segurança:
 GET: Menos seguro, pois os dados são expostos na URL.
 POST: Mais seguro para dados sensíveis, já que os dados são enviados no corpo da requisição.
 
-"GET Requests are getting data from the API server, whereas a POST Request is sendind data to the API server."
 
 17. Schema Validation with Pydantic 1:07:29
 18. CRUD Operations 1:22:45
+![alt text](/img/CRUD.png)
 19. storing posts in Array 1:29:44
 20. creating posts 1:34:06
 21. Postman Collections & saving requests 1:38:15

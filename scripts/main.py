@@ -1,8 +1,13 @@
 from typing import Union
 from fastapi import FastAPI
+from fastapi.params import Body
+from pydantic import BaseModel
 
 app = FastAPI()
 
+class Post(BaseModel):
+    title: str
+    content: str
 
 '''
 + @app.get('/'):
@@ -26,6 +31,11 @@ def read_root():
 @app.get('/posts')
 def get_data():
     return {'data': 'Your data has been captured!'}
+
+@app.post('/createdpost')
+def create_post(new_post: Post):
+    print(new_post.title)
+    return {'data': 'new_post'}
 
 # @app.get('/item/{item_id}')
 # def read_item(item_id: int, q: Union[str, None] = None):
