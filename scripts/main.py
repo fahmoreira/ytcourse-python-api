@@ -1,5 +1,5 @@
 from typing import Union, Optional
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.params import Body
 from pydantic import BaseModel
 from random import randrange
@@ -74,9 +74,11 @@ def create_posts(post: Post):
 # The user will provide us the ID that he want it
 
 @app.get('/posts/{id}') # This is gonna get embbeded in THE URL
-def get_post(id: int):
+def get_post(id: int, response: Response):
     post = find_posts(id)
     print(post)
+    if not post:
+        response.status_code = 404
     return {'post_detail': post}
     
 
@@ -130,5 +132,7 @@ from the front end, but also SENDING DATA BACK is all matching up with our organ
 
 + Até este momento o aprendizado tratou-se de conhecermos o comportamento das funções através do `print` e
 execuções de sessão dentro do Postman
+
++ Podemos manipular o HTTP Status do FastAPI com a biblioteca `Response`
 
 '''
