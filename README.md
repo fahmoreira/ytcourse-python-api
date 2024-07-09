@@ -54,7 +54,7 @@ Python *SQL Alchemy*
 15. Intro to Postman 53:22
 - It's just a tool that allows us to construct our own HTTP request. So we get to specify the individual fields of an HTTP request. What is the HTTP method? What's the URL? What are the headers that we're going to apply? What's the body? What kind of data is that going to carry?Is it going to have any authorization headers? 
 16. HTTP Post Requests 57:34
-![alt text](/img/HTTPvsPOST.pngimage.png)
+![alt text](/img/HTTPvsPOST.png)
 
 ### HTTP GET VS POST Request
 *HTTP GET Request*
@@ -100,9 +100,20 @@ POST: Mais seguro para dados sensíveis, já que os dados são enviados no corpo
 17. Schema Validation with Pydantic 1:07:29
 18. CRUD Operations 1:22:45
 ![alt text](/img/CRUD.png)
+
+How do I ensure that the user is sending what I wnat?
+What ir the user sends a blank title?
+How can we validate that the data the user sends is actually valid?
+What we want to do is we want to force the user into a schema that we can expect?
+
+`Pydantic` é uma poderosa ferramenta para validação e manipulação de dados no FastAPI. Ele permite definir modelos de dados de forma clara e garantir que os dados recebidos sejam válidos, facilitando a criação de APIs robustas e seguras.
+`https://docs.pydantic.dev/latest/`
+![alt text](/img/Why%20we%20need%20schema.png)
 19. storing posts in Array 1:29:44
 20. creating posts 1:34:06
 21. Postman Collections & saving requests 1:38:15
+Anytime we have a path parameter, it's always going to be returned as a string, even
+if it represents an integer or a number, we always have to manually convert it ourselves.
 22. Retrieve One Post 1:39:47
 23. Path order Matters 1:48:10
 24. Changing response Status Codes 1:52:46
