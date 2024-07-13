@@ -1,5 +1,5 @@
 from typing import Union, Optional
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, status, HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
 from random import randrange
@@ -42,6 +42,11 @@ def find_posts(id):
         if p['id'] == id:
             return p
 
+def find_index_post(id):
+    for i, p in enumerate(my_posts):
+        if p['id'] == id:
+            return i
+
 
 @app.get('/') 
 def root():
@@ -63,7 +68,7 @@ def get_posts():
 #     print(post.model_dump())
 #     return {'message': post}
 
-@app.post('/posts')
+@app.post('/posts', status_code=status.HTTP_201_CREATED)
 def create_posts(post: Post):
     post_dict = post.model_dump()
     post_dict['id'] = randrange(0, 9999999)
@@ -74,13 +79,44 @@ def create_posts(post: Post):
 # The user will provide us the ID that he want it
 
 @app.get('/posts/{id}') # This is gonna get embbeded in THE URL
-def get_post(id: int, response: Response):
+
+
+# def get_post(id: int, response: Response):
+#     post = find_posts(id)
+#     print(post)
+#     if not post:
+#         response.status_code = status.HTTP_404_NOT_FOUND
+#         return {'message': f'post with id: {id} was not found!'}
+#     return {'post_detail': post}
+def get_post(id: int):
     post = find_posts(id)
-    print(post)
     if not post:
-        response.status_code = 404
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                            detail=f'post with id: {id} was not found!')
     return {'post_detail': post}
+
+@app.delete('/posts/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_post(id: int):
+    index = find_index_post(id)
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                             detail={'message': f'post with id: {id} does not exist!'})
+
+    my_posts.pop(index)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@app.put('/posts/{id}')
+def update_post(id: int, post: Post):
+    index = find_index_post(id)
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                             detail={'message': f'post with id: {id} does not exist!'})
     
+    post_dict = post.model_dump()
+    post_dict['id'] = id
+    my_posts[index] = post_dict
+    return {'data': post_dict}
 
 '''
 + Section 3
@@ -134,5 +170,18 @@ from the front end, but also SENDING DATA BACK is all matching up with our organ
 execuções de sessão dentro do Postman
 
 + Podemos manipular o HTTP Status do FastAPI com a biblioteca `Response`
+
++ Status Response
+- Para checar o comportamento da foi desenvolvido de forma manual as exceções
+-- Código
+def get_post(id: int, response: Response):
+    post = find_posts(id)
+    print(post)
+    if not post:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {'message': f'post with id: {id} was not found!'}
+    return {'post_detail': post}
+
+- Mas para manter o código limpo utiliza-se a bibliotecca HTTPexceptions
 
 '''

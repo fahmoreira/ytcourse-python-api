@@ -133,9 +133,39 @@ ou seja, a chamada de /latest vem primeiro que /{id}
 24. Changing response Status Codes 1:52:46
 `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status`
 
+`from fastapi import status`
+![alt text](/img/import_fastapi_status.png)
+
+`HTTP 201 Creating`
+
+Remember, anytime we create an entity based off of that documentation, we shoud send a 201
+![alt text](/img/before_config_postcreate.png)
+
+To fix this we need to add in decorator the parameter below:
+*@app.post('/posts', status_code=status.HTTP_201_CREATED)*
+![alt text](/img/after_config_postcreate.png)
+
 25. Deleting Posts 2:01:49
+Aqui puder pude ser exposto ao comportamento da API na hora de deletar uma determinada posição da lista
+"my_posts". 
+-Lembrando que o cenário é apenas para introduzir ao comportamento da biblioteca
+
+Lidando com `TypeError: 'NoneType' object cannot be interpreted as an integer`
+Este erro é quando colocamos um *id* inexistente basta colocar um condicional de status excpecion "simples".
+
 26. Updating Posts 2:10:31
+`@app.put('/posts/{id}')`
+Usou-se parte da estrutura de criação de posts, como a classe e a estrutura de busca utilizado no *decorator* de Delete, porém desenvolvido uma nova lógica para inserção dos novos dados, ou seja, UPDATE da posição *id* 
+escolhido.
+
 27. Automatic Documentation 2:18:02
+*Fast API automatically generates the documentation based off of the path operations that you've defined.*
+`http://127.0.0.1:8000/docs` - Swagger UI
+![alt text](/img/fastapi_docs.png)
+
+`http://127.0.0.1:8000/redoc` - REDOC
+![alt text](/img/fastapi_redoc.png)
+
 28. Python packages 2:21:34
 
 ### Section 4: Databases
