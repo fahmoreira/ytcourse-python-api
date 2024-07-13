@@ -1,10 +1,14 @@
 # Python API Development Course
 
-O curso que estou acompanhando é da freeCodeAcademy.org e pode ser acessado através do link abaixo.
+Estou acompanhandoo curso disponibilizado pela freeCodeAcademy.org e pode ser acessado através do link abaixo.
+Tendo em vista que ele foi gravado a quase 2 anos estou realizado anotações gerais no ReadMe e diretamente nos scripts.
+Para fins de acompanhamento de progressão
+vou colocar uma flag chamado "iniciado" e "finalizado" para ver quanto tempo levou até a conclusão.
+Inicie o curso dia 27/06 e a data de previsão de término, segundo algumas métricas que coloquei no ChatGPT, é 
+dia 5/9/2024.
 
 https://youtu.be/0sOvCWFmrtA?si=VAtGGNFm5cKzqUhZ
 
-Apesar de estar em inglês a minha intenção é registrar todo o meu aprendizado em português, salvo um ou outro termo.
 
 Em um dos comentários eu pude notar que um colega fez a section, onde:
 
@@ -28,6 +32,7 @@ Python *SQL Alchemy*
 *Docker*
 *Cloud Provider*
 - CI/CD
+
 2. Course Intro
 3. Course Project Overview 06:33
 
@@ -41,23 +46,126 @@ Python *SQL Alchemy*
 10. Virtual environment on Mac 28:56
 
 ### Section 3: FastAPI
+- Iniciado: 27/06/24
 11. Install dependencies w/ pip 34:17
-12. Starting Fast API 36:21
+12. Starting Fast API 36:21 -Continuar deste ponto
 13. Path operations 39:23
+![alt text](/img/MethodPathFunction.png)
+
 14. Path Operation Order(yes it matters) 51:08
 15. Intro to Postman 53:22
+- It's just a tool that allows us to construct our own HTTP request. So we get to specify the individual fields of an HTTP request. What is the HTTP method? What's the URL? What are the headers that we're going to apply? What's the body? What kind of data is that going to carry?Is it going to have any authorization headers? 
+
 16. HTTP Post Requests 57:34
+![alt text](/img/HTTPvsPOST.png)
+
+### HTTP GET VS POST Request
+*HTTP GET Request*
+
+16.1. Envio de Dados:
+- A linha verde representa a requisição GET.
+Em uma requisição GET, os dados são enviados como parte da URL. Isso significa que você pode ver os dados na barra de endereços do navegador.
+
+- A requisição GET é geralmente usada para solicitar dados de um servidor. Por exemplo, acessar uma página da web ou buscar informações de uma API.
+
+*HTTP POST Request*
+
+16.2. Envio de Dados:
+- A linha roxa representa a requisição POST.
+Em uma requisição POST, os dados são enviados no corpo (body) da requisição HTTP, não na URL. Isso permite o envio de dados maiores e mais complexos, como formulários ou arquivos.
+
+- A requisição POST é geralmente usada para enviar dados ao servidor para criação ou atualização. Por exemplo, enviar um formulário de cadastro ou fazer login em um site.
+Recebimento de Dados:
+
+- A API processa a requisição POST e envia uma resposta de volta ao cliente, também representada pela linha roxa.
+
+- Os dados retornados não são visíveis na URL, o que oferece maior segurança e flexibilidade.
+
+Comparação entre GET e POST
+
+++ Visibilidade dos Dados:
+GET: Dados são visíveis na URL.
+POST: Dados são enviados no corpo da requisição, não visíveis na URL.
+
+++ Uso Típico:
+GET: Recuperar dados (ex.: acessar uma página da web, buscar informações).
+POST: Enviar dados (ex.: enviar formulários, criar/atualizar recursos).
+
+++ Limitações de Tamanho:
+GET: Limitado pelo tamanho da URL.
+POST: Pode enviar grandes volumes de dados no corpo da requisição.
+
+++ Segurança:
+GET: Menos seguro, pois os dados são expostos na URL.
+POST: Mais seguro para dados sensíveis, já que os dados são enviados no corpo da requisição.
+
 17. Schema Validation with Pydantic 1:07:29
 18. CRUD Operations 1:22:45
+![alt text](/img/CRUD.png)
+
+How do I ensure that the user is sending what I wnat?
+What ir the user sends a blank title?
+How can we validate that the data the user sends is actually valid?
+What we want to do is we want to force the user into a schema that we can expect?
+
+`Pydantic` é uma poderosa ferramenta para validação e manipulação de dados no FastAPI. Ele permite definir modelos de dados de forma clara e garantir que os dados recebidos sejam válidos, facilitando a criação de APIs robustas e seguras.
+`https://docs.pydantic.dev/latest/`
+![alt text](/img/Why%20we%20need%20schema.png)
+
 19. storing posts in Array 1:29:44
 20. creating posts 1:34:06
 21. Postman Collections & saving requests 1:38:15
+Anytime we have a path parameter, it's always going to be returned as a string, even
+if it represents an integer or a number, we always have to manually convert it ourselves.
 22. Retrieve One Post 1:39:47
 23. Path order Matters 1:48:10
+We have to be careful when you structure our API, especially with paths and URLs. We must to make sure that we don't run into this type of issue.
+Por exemplo:
+import ...
+
+@app.get('/posts/{id}')
+
+@app.get('posts/latest')
+
+Vai dar erro, pois o quando se trabalha com `path parameters` é necessário order os métodos corretamente,
+ou seja, a chamada de /latest vem primeiro que /{id}
+
 24. Changing response Status Codes 1:52:46
+`https://developer.mozilla.org/en-US/docs/Web/HTTP/Status`
+
+`from fastapi import status`
+![alt text](/img/import_fastapi_status.png)
+
+`HTTP 201 Creating`
+
+Remember, anytime we create an entity based off of that documentation, we shoud send a 201
+![alt text](/img/before_config_postcreate.png)
+
+To fix this we need to add in decorator the parameter below:
+*@app.post('/posts', status_code=status.HTTP_201_CREATED)*
+![alt text](/img/after_config_postcreate.png)
+
 25. Deleting Posts 2:01:49
+Aqui puder pude ser exposto ao comportamento da API na hora de deletar uma determinada posição da lista
+"my_posts". 
+-Lembrando que o cenário é apenas para introduzir ao comportamento da biblioteca
+
+Lidando com `TypeError: 'NoneType' object cannot be interpreted as an integer`
+Este erro é quando colocamos um *id* inexistente basta colocar um condicional de status excpecion "simples".
+
 26. Updating Posts 2:10:31
+`@app.put('/posts/{id}')`
+Usou-se parte da estrutura de criação de posts, como a classe e a estrutura de busca utilizado no *decorator* de Delete, porém desenvolvido uma nova lógica para inserção dos novos dados, ou seja, UPDATE da posição *id* 
+escolhido.
+
 27. Automatic Documentation 2:18:02
+*Fast API automatically generates the documentation based off of the path operations that you've defined.*
+`http://127.0.0.1:8000/docs` - Swagger UI
+![alt text](/img/fastapi_docs.png)
+
+`http://127.0.0.1:8000/redoc` - REDOC
+![alt text](/img/fastapi_redoc.png)
+
 28. Python packages 2:21:34
 
 ### Section 4: Databases
